@@ -15,6 +15,9 @@ sc_main(int argc, char *argv[])
 	sc_bv<8> bvc = true;
 	sc_lv<4> lve = bvb(6, 3);
 	sc_bv<4> bvd = lvb(6, 3);
+	sc_int<42> a = lvb;
+	sc_uint<42> b = 123456789;
+	sc_lv<42> lvf = a;
 
 	cout << f << t << z << x << i << endl;
 	cout << ~x << (f ^ t) << (z & x) << endl;
@@ -26,6 +29,9 @@ sc_main(int argc, char *argv[])
 	cout << (lvb ^ lvc) << endl << (lvc & lvd) << endl;
 	cout << (lvb ^ bvb) << endl << (lvc | bvc) << endl;
 	cout << lve << endl << bvd << endl;
+
+	cout << a << endl << b << endl << lvf << endl;
+	cout << (a + b) << endl << (a || b) << endl << (a < b) << endl;
 
 	return 0;
 }
