@@ -2,7 +2,7 @@
 #include <systemc.h>
 
 int
-sc_main(int argc, char *argv[])
+sc_main(int, char **)
 {
 	cout << "Hello world!" << endl;
 

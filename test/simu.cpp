@@ -2,7 +2,7 @@
 #include <systemc.h>
 
 int
-sc_main(int argc, char * argv[])
+sc_main(int, char **)
 {
 	sc_time T(0.333, SC_NS);
 

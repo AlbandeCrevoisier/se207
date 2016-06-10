@@ -1,3 +1,3 @@
-CXXFLAGS = -Wall -Wextra -Wpedantic -std=c++11
+CXXFLAGS = -Wall -Wextra -Werror -Wpedantic -std=c++11
 
 LDLIBS = -lsystemc

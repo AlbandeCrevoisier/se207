@@ -3,7 +3,7 @@
 using namespace std;
 
 int
-sc_main(int argc, char *argv[])
+sc_main(int, char **)
 {
 	bool bf =  false, bt = true;
 	sc_logic f(0), t(1), z('z'), x('x');
@@ -31,7 +31,7 @@ sc_main(int argc, char *argv[])
 	cout << lve << endl << bvd << endl;
 
 	cout << a << endl << b << endl << lvf << endl;
-	cout << (a + b) << endl << (a || b) << endl << (a < b) << endl;
+	cout << (a + b) << endl << (a || b) << endl;
 
 	return 0;
 }
