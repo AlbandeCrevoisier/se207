@@ -84,6 +84,14 @@ sc_main (int, char **)
 	p = pixel_tmp;
 	sc_start(10, SC_NS);
 	cout << "--> @" << sc_time_stamp() << " p = " << p << endl;
+	pixel_tmp.g += 42;
+	p = pixel_tmp;
+	sc_start(10, SC_NS);
+	cout << "--> @" << sc_time_stamp() << " p = " << p << endl;
+	pixel_tmp.b += 9;
+	p = pixel_tmp;
+	sc_start(10, SC_NS);
+	cout << "--> @" << sc_time_stamp() << " p = " << p << endl;
 
 	sc_start(10, SC_NS);
 
