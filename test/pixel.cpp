@@ -33,7 +33,7 @@ struct p_t {
 	}
 
 	friend ostream& operator << (ostream& o, const p_t& p) {
-		o << "{" << p.r << ", " << p.g << ", " << p.b << ", " << endl;
+		o << "Pixel {" << p.r << ", " << p.g << ", " << p.b << "}";
 		return o;
 	}
 };
@@ -59,6 +59,10 @@ sc_trace(sc_trace_file *_f, const p_t& _p, const string& _s)
 int
 sc_main (int, char **)
 {
+	sc_trace_file *f_t;
+	f_t = sc_create_vcd_trace_file ("pixel_trace");
+	f_t->set_time_unit(1, SC_NS);
+
 	sc_signal<pt_t> P;
 	cout << "--> @ " << sc_time_stamp() << " P = " << P << endl;
 
@@ -66,8 +70,24 @@ sc_main (int, char **)
 	P = pt_t(33,22);
 	cout << "--> @ " << sc_time_stamp() << " P = " << P << endl;
 
-	sc_start(1,SC_NS);
-	cout << "--> @ " << sc_time_stamp() << " P = " << P << endl;
+	cout << "==========" << endl;
+
+	sc_signal<p_t> p;
+	sc_trace(f_t, p, "pixel");
+	p_t pixel_tmp = p_t(9, 17, 42);
+	cout << "--> @" << sc_time_stamp() << " p = " << p << endl;
+	p = pixel_tmp;
+	cout << "--> @" << sc_time_stamp() << " p = " << p << endl;
+	sc_start(10, SC_NS);
+	cout << "--> @" << sc_time_stamp() << " p = " << p << endl;
+	pixel_tmp.r++;
+	p = pixel_tmp;
+	sc_start(10, SC_NS);
+	cout << "--> @" << sc_time_stamp() << " p = " << p << endl;
+
+	sc_start(10, SC_NS);
+
+	sc_close_vcd_trace_file(f_t);
 
 	return 0;
 }
