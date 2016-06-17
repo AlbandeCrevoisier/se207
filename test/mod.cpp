@@ -1,3 +1,8 @@
+/* to put i in o: create a method with a sensibility on i, and in it o = i */
+
+
+
+
 /* signal and modules */
 #include <systemc.h>
 
