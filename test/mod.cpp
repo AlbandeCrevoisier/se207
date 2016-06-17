@@ -4,13 +4,19 @@
 SC_MODULE(foo) {
 	sc_in <bool> i;
 	sc_out<bool> o;
-	SC_CTOR(foo):i("i"),o("o") { }
+	SC_CTOR(foo):i("i"),o("o")
+	{
+		
+	}
 };
 
 SC_MODULE(bar) {
 	sc_in <bool> i;
 	sc_out<bool> o;
-	SC_CTOR(bar):i("i"),o("o") { }
+	SC_CTOR(bar):i("i"),o("o")
+	{
+		
+	}
 };
 
 SC_MODULE(foobar) {
@@ -48,6 +54,7 @@ sc_main(int, char **)
 	t_f->set_time_unit(1, SC_NS);
 	sc_trace(t_f, clk, "clk");
 	sc_trace(t_f, o, "o");
+	sc_trace(t_f, uut.s, "s");
 
 	uut.i(clk);
 	uut.o(o);
