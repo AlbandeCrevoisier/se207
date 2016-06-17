@@ -1,7 +1,7 @@
 /*******************************************************************************
- * File   : video_in.h
+ * File : video_in.h
  * Author : Alexis Polti/Tarik Graba
- * Date   : 2008-2016
+ * Date : 2008-2016
  * This program is released under the GNU Public License
  * Copyright : Télécom ParisTECH
  *
@@ -23,48 +23,45 @@
  *  définition du module
  **************************************/
 SC_MODULE(VIDEO_IN) {
+	// IO PORTS
+	sc_in<bool> clk;
+	sc_in<bool> reset_n;
 
-   // IO PORTS
-   sc_in<bool>         clk;
-   sc_in<bool>         reset_n;
+	sc_out<bool> href;
+	sc_out<bool> vref;
 
-   sc_out<bool>        href;
-   sc_out<bool>        vref;
+	sc_out<unsigned char> pixel_out;
 
-   sc_out<unsigned char> pixel_out;
+	/***************************************************
+	 *  constructeur
+	 **************************************************/
+	SC_CTOR(VIDEO_IN):base_name("wallace") {
+		cout << "Instanciation de " << name() <<" ..." ;
 
-   /***************************************************
-    *  constructeur
-    **************************************************/
-   SC_CTOR(VIDEO_IN):base_name("wallace")
-   {
-      cout << "Instanciation de " << name() <<" ..." ;
+		SC_THREAD (gen_sorties);
+		sensitive << clk.pos();
+		async_reset_signal_is(reset_n,false);
+		dont_initialize();
 
-      SC_THREAD (gen_sorties);
-      sensitive << clk.pos();
-      async_reset_signal_is(reset_n,false);
-      dont_initialize();
+		current_image_number = 0;
+		image.pixel = NULL;
+		read_image();
 
-      current_image_number = 0;
-      image.pixel = NULL;
-      read_image();
+		cout << "... réussie" << endl;
+	}
 
-      cout << "... réussie" << endl;
-   }
+	/***************************************************
+	 *  méthodes et champs internes
+	 **************************************************/
+	private:
 
-   /***************************************************
-    *  méthodes et champs internes
-    **************************************************/
-   private:
+	void gen_sorties();
+	void read_image();
 
-   void gen_sorties();
-   void read_image();
+	const std::string base_name; // nom de base des images d'entrée
+	int current_image_number; // numéro de l'image courante
 
-   const std::string   base_name;              // nom de base des images d'entrée
-   int                 current_image_number;   // numéro de l'image courante
-
-   Image               image;
+	Image image;
 };
 
 #endif
-
