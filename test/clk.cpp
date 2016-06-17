@@ -13,7 +13,7 @@ sc_main(int, char **)
 	/* Periode 10ns, duty cycle 25%, starts @150ns by negedge */
 	sc_clock ck3("ck3",10,SC_NS,0.25,150,SC_NS,false);
 	sc_clock ck4("ck4",T,D,ST,first_edge);
-	sc_trace_file*t_f;
+	sc_trace_file *t_f;
 
 	t_f = sc_create_vcd_trace_file("clk_trace");
 	t_f->set_time_unit(1, SC_NS);
