@@ -33,7 +33,7 @@ VIDEO_IN::gen_sorties()
 	}
 	// boucle infinie
 	while (1) {
-		for (int i = 0; i < 625; i++)
+		for (int i = 0; i < 625; i++) {
 			for (int j = 0; j < 874; j++) {
 				// on attend le prochain coup d'horloge
 				wait();
@@ -52,6 +52,7 @@ VIDEO_IN::gen_sorties()
 				// VREF est actif pendant les 3 premières lignes d'une image
 				vref = (i < 3);
 			}
+		}
 
 		// On a fini une image, on passe à la suivante
 		current_image_number++;

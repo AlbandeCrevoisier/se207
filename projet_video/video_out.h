@@ -1,3 +1,4 @@
+/* Convert a video stream into pictures. */
 #ifndef VIDEO_OUT_H
 #define VIDEO_OUT_H
 
@@ -23,7 +24,7 @@ SC_MODULE(VIDEO_OUT) {
 
 	private:
 	void gen_pic();
-	void read_flux();
+	void read_stream();
 
 	Image image;
 };
