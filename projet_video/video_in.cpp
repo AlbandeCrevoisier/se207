@@ -1,7 +1,7 @@
 /*******************************************************************************
- * File	: video_in.h
+ * File : video_in.h
  * Author : Alexis Polti/Tarik Graba
- * Date	: 2008-2016
+ * Date : 2008-2016
  * This program is released under the GNU Public License
  * Copyright : Télécom ParisTECH
  *
@@ -102,4 +102,3 @@ VIDEO_IN::read_image()
 		exit(-1);
 	}
 }
-

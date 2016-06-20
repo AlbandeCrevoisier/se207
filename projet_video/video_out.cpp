@@ -13,9 +13,14 @@ VIDEO_OUT::gen_pic()
 				image.pixel[i * image.width + j];
 		read_stream();
 	}
+
+	/* TODO: gen pic */
 }
 
 void
 VIDEO_OUT::read_stream()
 {
+	FILE *image_f = NULL;
+
+	image_write(Image * image, const char *filename);
 }
