@@ -14,6 +14,18 @@ SC_MODULE(VIDEO_OUT) {
 	SC_CTOR(VIDEO_OUT):base_name("gromit") {
 		SC_THREAD(gen_pic);
 		sensitive << clk.pos();
+		async_reset_signal_is(reset_n,false);
+		dont_initialize();
+
+		/* TODO */
+		read_flux();
 	}
+
+	private:
+	void gen_pic();
+	void read_flux();
+
+	Image image;
+};
 
 #endif // VIDEO_OUT_H
