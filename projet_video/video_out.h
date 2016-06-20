@@ -11,6 +11,9 @@ SC_MODULE(VIDEO_OUT) {
 	sc_in<bool> href;
 	sc_in<bool> vref;
 
-	
+	SC_CTOR(VIDEO_OUT):base_name("gromit") {
+		SC_THREAD(gen_pic);
+		sensitive << clk.pos();
+	}
 
 #endif // VIDEO_OUT_H
