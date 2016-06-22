@@ -18,14 +18,14 @@ SC_MODULE(VIDEO_OUT) {
 		async_reset_signal_is(reset_n,false);
 		dont_initialize();
 
-		/* TODO */
-		read_flux();
+		curr_image = 0;
 	}
 
 	private:
 	void gen_pic();
 	void read_stream();
 
+	const std::string base_name;
 	Image image;
 };
 
