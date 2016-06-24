@@ -24,8 +24,9 @@ Quels critères vous feraient choisir un type plutôt qu'un autre?
 
 ---
 
- `int32_t` : comme c'est un type natif du C++, on profite des avantages de vitesse et de simplicité d'utilisation du type.
- `sc_int<32>` : partiques pour de la sélection de bits etc, mais permet tout de même de faire de l'arithmétique etc.
+ `int32_t` : comme c'est un type natif du C++, on profite des avantages de vitesse et de simplicité d'utilisation du type,
+ par contre on ne peut pas faire de sélection de bits facilement.
+ `sc_int<32>` : pratiques pour de la sélection de bits etc, mais permet tout de même de faire de l'arithmétique etc.
  `sc_bv<32>` : adapté pour accéder à des éléments, i.e. bit ou plage de bits, mais ne permet pas de faire d'arithmétique.
  `sc_lv<32>` : pareil que pour `sc_bv`, sauf que ce type autorise les états X  et Z en plus.
 
@@ -37,7 +38,9 @@ Pourquoi ne peut-on pas connecter *directement* la sortie d'une module (par exem
 
 ---
 
-La sortie du module est un port, pas un signal, il faut donc connecter les ports avec des signaux.
+Les sorties et entrées du module sont des port, pas des signaux, il faut donc connecter les ports avec des signaux.
+Cela paraît cohérent de ne pas avoir une transmission instantanée des données entre deux modules quand on modélise
+du matériel.
 
 ---
 
@@ -109,3 +112,15 @@ Donc, `sc_fifo` et `SC_METHOD` ne font pas bon ménage.
 
 ---
 
+
+/!\ Attention /!\
+=================
+
+Ne sachant pas que nous ne pouvions pas utiliser le cours, je l'ai regardé pour vérifier le problème avec les
+`sc_fifo` et les `SC_METHOD`. Honnêtement, je ne savais pas que les méthodes des fifo utilisent des wait et n'aurais
+donc probablement pas pu répondre à cette question (bon, c'est le principal soucis avec les `SC_METHOD`, donc
+j'aurais tout de même cherché dans cette direction.
+
+Bref, je voulais le signaler pour des questions d'honnêteté intellectuelle.
+
+Merci, et bonne correction.
