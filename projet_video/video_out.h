@@ -13,16 +13,13 @@ SC_MODULE(VIDEO_OUT) {
 	sc_in<bool> vref;
 
 	SC_CTOR(VIDEO_OUT):base_name("gromit") {
-		SC_THREAD(gen_pic);
+		SC_THREAD(read_stream);
 		sensitive << clk.pos();
-		async_reset_signal_is(reset_n,false);
+		async_reset_signal_is(reset_n, false);
 		dont_initialize();
-
-		curr_image = 0;
 	}
 
 	private:
-	void gen_pic();
 	void read_stream();
 
 	const std::string base_name;

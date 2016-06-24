@@ -1,0 +1,4 @@
+Le modulo n'est pas un modulo, mais uniquemente le reste de la division euclidienne.
+Pour récupérer un modulo, il faut faire (3 + x) % 3 (si x < 0, (x % 3) < 0 en C).
+Pas besoin de stocker toute l'image, il suffit de stocker le quart dans le cas du
+zoom, et les trois premieres lignes pour l'autre.
