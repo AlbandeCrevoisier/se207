@@ -36,7 +36,7 @@ SC_MODULE(VIDEO_IN) {
 	 *  constructeur
 	 **************************************************/
 	SC_CTOR(VIDEO_IN):base_name("wallace") {
-		cout << "Instanciation de " << name() <<" ..." ;
+		cout << "Instanciation de " << name() << " ..." << endl;
 
 		SC_THREAD (gen_sorties);
 		sensitive << clk.pos();

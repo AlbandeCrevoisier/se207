@@ -18,6 +18,7 @@ VIDEO_OUT::read_stream()
 	while (1) {
 		const char *f_name;
 		wait(vref.posedge_event());
+		cout << "Reading image..." << endl;
 		for (i = 0; i < H; i++) {
 			j = 0;
 			while (href == 1) {

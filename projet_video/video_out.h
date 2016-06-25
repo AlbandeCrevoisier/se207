@@ -8,11 +8,12 @@
 SC_MODULE(VIDEO_OUT) {
 	sc_in<bool> clk;
 	sc_in<bool> reset_n;
-	sc_in<unsigned char> pixel_in;
 	sc_in<bool> href;
 	sc_in<bool> vref;
+	sc_in<unsigned char> pixel_in;
 
 	SC_CTOR(VIDEO_OUT):base_name("gromit") {
+		cout << "Instanciation of " << name() << "..." << endl;
 		SC_THREAD(read_stream);
 		sensitive << clk.pos();
 		async_reset_signal_is(reset_n, false);
