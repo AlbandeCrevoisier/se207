@@ -13,11 +13,16 @@ SC_MODULE(VIDEO_OUT) {
 	sc_in<unsigned char> pixel_in;
 
 	SC_CTOR(VIDEO_OUT):base_name("gromit") {
-		cout << "Instanciation of " << name() << "..." << endl;
+		cout << "Begin instanciation of " << name() << "." << endl;
+
 		SC_THREAD(read_stream);
 		sensitive << clk.pos();
 		async_reset_signal_is(reset_n, false);
 		dont_initialize();
+
+		image.pixel = NULL;
+
+		cout << name() << " instanciated." << endl;
 	}
 
 	private:
@@ -27,4 +32,4 @@ SC_MODULE(VIDEO_OUT) {
 	Image image;
 };
 
-#endif // VIDEO_OUT_H
+#endif /* VIDEO_OUT_H */

@@ -13,6 +13,7 @@ VIDEO_OUT::read_stream()
 		i = 0;
 		j = 0;
 		n_image = 0;
+		cout << name() << " reset." << endl;
 	}
 
 	while (1) {
