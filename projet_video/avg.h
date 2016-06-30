@@ -25,6 +25,9 @@ SC_MODULE(FILTER_AVG) {
 		async_reset_signal_is(reset_n, false);
 		dont_initialize();
 
+		vref = false;
+		href = false;
+
 		width = 720;
 		height = 576;
 		buf = (unsigned char *)
