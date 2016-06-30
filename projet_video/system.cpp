@@ -13,6 +13,7 @@
 #include <sstream>
 #include "video_in.h"
 #include "video_out.h"
+#include "avg.h"
 
 /***************************************************
  *	MAIN
@@ -45,8 +46,10 @@ sc_main(int argc, char *argv[])
 	sc_clock signal_clk("Clock", pix_period);
 	sc_signal<bool> signal_resetn;
 
-	sc_signal<bool> signal_vref, signal_href;
-	sc_signal<unsigned char> signal_pixel;
+	sc_signal<bool> signal_vref_1, signal_vref_2;
+	sc_signal<bool> signal_href_1, signal_href_2;
+	sc_signal<unsigned char> signal_pixel_1;
+	sc_signal<unsigned char> signal_pixel_2;
 
 	/********************************************************
 	 *	Instanciation des modules
@@ -54,6 +57,7 @@ sc_main(int argc, char *argv[])
 
 	VIDEO_IN video_in("VIDEO_GEN");
 	VIDEO_OUT video_out("PIC_GEN");
+	FILTER_AVG filter_avg("AVG");
 
 	/*********************************************************
 	 *	Connexion des composants
@@ -61,15 +65,24 @@ sc_main(int argc, char *argv[])
 
 	video_in.clk(signal_clk);
 	video_in.reset_n(signal_resetn);
-	video_in.href(signal_href);
-	video_in.vref(signal_vref);
-	video_in.pixel_out(signal_pixel);
+	video_in.vref(signal_vref_1);
+	video_in.href(signal_href_1);
+	video_in.pixel_out(signal_pixel_1);
+
+	filter_avg.clk(signal_clk);
+	filter_avg.reset_n(signal_resetn);
+	filter_avg.vref_in(signal_vref_1);
+	filter_avg.href_in(signal_href_1);
+	filter_avg.pixel_in(signal_pixel_1);
+	filter_avg.vref_out(signal_vref_2);
+	filter_avg.href_out(signal_href_2);
+	filter_avg.pixel_out(signal_pixel_2);
 
 	video_out.clk(signal_clk);
 	video_out.reset_n(signal_resetn);
-	video_out.href(signal_href);
-	video_out.vref(signal_vref);
-	video_out.pixel_in(signal_pixel);
+	video_out.vref(signal_vref_2);
+	video_out.href(signal_href_2);
+	video_out.pixel_in(signal_pixel_2);
 
 	/*********************************************************
 	 *	Traces
@@ -87,9 +100,12 @@ sc_main(int argc, char *argv[])
 	TRACE(signal_resetn);
 
 	/* chronogrammes video */
-	TRACE(signal_href);
-	TRACE(signal_vref);
-	TRACE(signal_pixel);
+	TRACE(signal_href_1);
+	TRACE(signal_href_2);
+	TRACE(signal_vref_1);
+	TRACE(signal_vref_2);
+	TRACE(signal_pixel_1);
+	TRACE(signal_pixel_2);
 
 #undef TRACE
 

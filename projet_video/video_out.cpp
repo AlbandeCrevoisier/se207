@@ -16,7 +16,6 @@ VIDEO_OUT::read_stream()
 	while (1) {
 		const char *f_name;
 		wait(vref.posedge_event());
-		cout << "Reading image..." << endl;
 		for (i = 0; i < image.height; i++) {
 			wait(href.posedge_event());
 			for (j = 0; j < image.width; j++) {
@@ -25,7 +24,7 @@ VIDEO_OUT::read_stream()
 			}
 		}
 		f_name = (base_name + std::to_string(n_image++)).c_str();
-		cout << "Writing: " << f_name << endl;
+		cout << name() << ": writing " << f_name << endl;
 		image_write(&image, f_name);
 	}
 }

@@ -25,20 +25,18 @@ SC_MODULE(FILTER_AVG) {
 		async_reset_signal_is(reset_n, false);
 		dont_initialize();
 
-		vref = false;
-		href = false;
+		buf.width = 720;
+		buf.height = 576;
+		buf.pixel = (unsigned char *)
+			malloc(buf.width * 3 * sizeof(unsigned char));
 
-		width = 720;
-		height = 576;
-		buf = (unsigned char *)
-			malloc(width * 3 * sizeof(unsigned char));
+		cout << name() << " instanciated." << endl;
 	}
 
 	private:
 	void avg();
 
-	unsigned char *buf;
-	int width;
+	Image buf;
 };
 
 #endif /* AVG_H */

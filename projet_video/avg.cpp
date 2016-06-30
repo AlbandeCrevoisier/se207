@@ -1,13 +1,15 @@
 #include "avg.h"
 
 void
-FILTER_AVGT::avg()
+FILTER_AVG::avg()
 {
 	int i, j;
+	int w = buf.width;
+	int h = buf.height;
 
 	if (reset_n == false) {
 		vref_out = false;
-		href_out = true;
+		href_out = false;
 		pixel_out = 0;
 		i = 0;
 		j = 0;
@@ -16,40 +18,42 @@ FILTER_AVGT::avg()
 
 	while (1) {
 		wait(vref_in.posedge_event());
-		for (i = 0; i < height; i++) {
-			wait(href_in.posedge_event());
-			for (j = 0; j < width; j++) {
+		for (i = 0; i < h + 2; i++) {
+			if (i < h)
+				wait(href_in.posedge_event());
+			for (j = 0; j < w; j++) {
 				wait();
-				buf[(i * width) % 3 + j] = pixel;
-			}
+				buf.pixel[(i * w) % 3 + j] = pixel_in;
 
-			vref = (i < 3);
+				vref_out = (i > 1 && i < 5);
 
-			if (2 < i) {
-				int up, down;
-				int left, right;
-				int tmp = 0;
+				if (i > 1) {
+					int a = i - 2;
+					int u, d;
+					int l, r;
+					int tmp = 0;
 
-				href_out = true;
+					href_out = true;
 
-				up = (i ? 1 : (i - 1));
-				down = ((i == height - 1) ? height - 2 : i + 1);
-				left = (j ? 1 : (j - 1));
-				right = ((j == width - 1) ? width - 2 : j + 1);
+					u = (a ? 1 : (a - 1));
+					d = ((a == h - 1) ? h - 2 : a + 1);
+					l = (j ? 1 : (j - 1));
+					r = ((j == w - 1) ? w - 2 : j + 1);
 
-				tmp += buf[((3 + up) % 3) * width + left];
-				tmp += buf[((3 + up) % 3) * width + j];
-				tmp += buf[((3 + up) % 3) * width + right];
-				tmp += buf[(i % 3) * width + left];
-				tmp += buf[(i % 3) * width + j];
-				tmp += buf[(i % 3) * width + right];
-				tmp += buf[(down % 3) * width + left];
-				tmp += buf[(down % 3) * width + j];
-				tmp += buf[(down % 3) * width + right];
-				
-				tmp /= 9;
+					tmp += buf.pixel[((3 + u) % 3) * w + l];
+					tmp += buf.pixel[((3 + u) % 3) * w + j];
+					tmp += buf.pixel[((3 + u) % 3) * w + r];
+					tmp += buf.pixel[(a % 3) * w + l];
+					tmp += buf.pixel[(a % 3) * w + j];
+					tmp += buf.pixel[(a % 3) * w + r];
+					tmp += buf.pixel[(d % 3) * w + l];
+					tmp += buf.pixel[(d % 3) * w + j];
+					tmp += buf.pixel[(d % 3) * w + r];
 
-				pixel_out = tmp;
+					tmp /= 9;
+
+					pixel_out = tmp;
+				}
 			}
 			href_out = false;
 		}
