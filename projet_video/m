@@ -1,2 +1,2 @@
 #!/bin/bash
-make all && ./simulation.x 42
+make clean && make all && ./simulation.x 1000000

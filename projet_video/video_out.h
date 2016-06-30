@@ -20,7 +20,10 @@ SC_MODULE(VIDEO_OUT) {
 		async_reset_signal_is(reset_n, false);
 		dont_initialize();
 
-		image.pixel = NULL;
+		image.width = 720;
+		image.height = 576;
+		image.pixel = (unsigned char *)
+			malloc(720 * 576 * sizeof(unsigned char));
 
 		cout << name() << " instanciated." << endl;
 	}

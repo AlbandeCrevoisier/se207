@@ -1,8 +1,5 @@
 #include "video_out.h"
 
-#define W 720
-#define H 576
-
 void
 VIDEO_OUT::read_stream()
 {
@@ -20,14 +17,15 @@ VIDEO_OUT::read_stream()
 		const char *f_name;
 		wait(vref.posedge_event());
 		cout << "Reading image..." << endl;
-		for (i = 0; i < H; i++) {
-			j = 0;
-			while (href == 1) {
+		for (i = 0; i < image.height; i++) {
+			wait(href.posedge_event());
+			for (j = 0; j < image.width; j++) {
 				wait();
-				image.pixel[i * image.width + j++] = pixel_in;
+				image.pixel[i * image.width + j] = pixel_in;
 			}
 		}
 		f_name = (base_name + std::to_string(n_image++)).c_str();
+		cout << "Writing: " << f_name << endl;
 		image_write(&image, f_name);
 	}
 }
