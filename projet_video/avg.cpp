@@ -18,6 +18,7 @@ FILTER_AVG::avg()
 
 	while (1) {
 		wait(vref_in.posedge_event());
+		cout << name() << " recieving pic." << endl;
 		for (i = 0; i < h + 2; i++) {
 			if (i < h)
 				wait(href_in.posedge_event());
@@ -25,14 +26,13 @@ FILTER_AVG::avg()
 				wait();
 				buf.pixel[(i * w) % 3 + j] = pixel_in;
 
-				vref_out = (i > 1 && i < 5);
-
 				if (i > 1) {
 					int a = i - 2;
 					int u, d;
 					int l, r;
 					int tmp = 0;
 
+					vref_out = (a < 3);
 					href_out = true;
 
 					u = (a ? 1 : (a - 1));
